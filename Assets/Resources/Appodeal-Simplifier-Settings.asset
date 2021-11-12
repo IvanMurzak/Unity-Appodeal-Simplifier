@@ -24,7 +24,7 @@ MonoBehaviour:
   appodealApiKeyAndroid: 170ab9e3a33043555ae0887eb2725023d5e839ed692f90db
   appodealApiKeyIOS: 
   appodealTesting: 1
-  appodealLogLevel: 2
+  appodealLogLevel: 1
   debug: 1
   EnableBanner: 1
   EnableMREC: 1
@@ -32,16 +32,15 @@ MonoBehaviour:
   EnableInterstitial: 1
   EnableNonSkippableVideo: 1
   AutoCacheBanner: 1
-  AutoCacheMREC: 1
+  AutoCacheMREC: 0
   AutoCacheRewardedVideo: 1
-  AutoCacheInterstitial: 1
-  AutoCacheNonSkippableVideo: 1
+  AutoCacheInterstitial: 0
+  AutoCacheNonSkippableVideo: 0
   setChildDirectedTreatment: 1
   support_GDPR_CCPA: 1
   support_GDPR_CCPA_OnInitialize: 1
-  support_GDPR_CCPA_Force: 1
+  support_GDPR_CCPA_Force: 0
   locationPermissionCheck: 1
-  writeExternalStoragePermissionCheck: 1
   A4G: 1
   ADCOLONY: 1
   ADMOB: 1
