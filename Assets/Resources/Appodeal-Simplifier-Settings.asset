@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34b00b6156e5f241bae502ee756cdb2, type: 3}
+  m_Name: Appodeal-Simplifier-Settings
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  appodealApiKeyAndroid: 170ab9e3a33043555ae0887eb2725023d5e839ed692f90db
+  appodealApiKeyIOS: 
+  appodealTesting: 1
+  appodealLogLevel: 2
+  debug: 1
+  EnableBanner: 1
+  EnableMREC: 1
+  EnableRewardedVideo: 1
+  EnableInterstitial: 1
+  EnableNonSkippableVideo: 1
+  AutoCacheBanner: 1
+  AutoCacheMREC: 1
+  AutoCacheRewardedVideo: 1
+  AutoCacheInterstitial: 1
+  AutoCacheNonSkippableVideo: 1
+  setChildDirectedTreatment: 1
+  support_GDPR_CCPA: 1
+  support_GDPR_CCPA_OnInitialize: 1
+  support_GDPR_CCPA_Force: 1
+  locationPermissionCheck: 1
+  writeExternalStoragePermissionCheck: 1
+  A4G: 1
+  ADCOLONY: 1
+  ADMOB: 1
+  AMAZON_ADS: 1
+  APPODEAL: 1
+  APPLOVIN: 1
+  BIDMACHINE: 1
+  CHARTBOOST: 1
+  INMOBI: 1
+  IRONSOURCE: 1
+  FLURRY: 1
+  FYBER: 1
+  FACEBOOK: 1
+  MINTEGRAL: 1
+  MOPUB: 1
+  MRAID: 1
+  MY_TARGET: 1
+  NAST: 1
+  OGURY: 1
+  SMAATO: 1
+  STARTAPP: 1
+  TAPJOY: 1
+  YANDEX: 1
+  UNITY_ADS: 1
+  VUNGLE: 1
+  VAST: 1
+  placements:
+  - default
