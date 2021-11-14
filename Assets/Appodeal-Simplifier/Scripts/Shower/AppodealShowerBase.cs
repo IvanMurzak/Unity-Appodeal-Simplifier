@@ -57,7 +57,11 @@ namespace AppodealSimplifier
 			onClosedDisposable?.Dispose();
 			onClosedDisposable = OnClosedAds
 				.First		()
-				.Subscribe	(_ => onClosed?.Invoke())
+				.Subscribe	(_ =>
+				{
+					AdsVisible.Value = false;
+					onClosed?.Invoke();
+				})
 				.AddTo		(this);
 
 			AdsVisible.Value = Appodeal.show(AdType);
@@ -101,6 +105,7 @@ namespace AppodealSimplifier
 						{
 							onLoaded?.Invoke();
 							onLoadedDisposable?.Dispose();
+							onLoadedDisposable = null; 
 							AppodealShow();
 						}).AddTo(this);
 				}

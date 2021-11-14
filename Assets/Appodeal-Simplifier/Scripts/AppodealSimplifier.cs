@@ -108,15 +108,18 @@ namespace AppodealSimplifier
 		{
 			if (Config.debug) Debug.Log($"Appodeal.RequestConsentIfNeeded");
 
-			if (!consent.Value && !IsAskedConsentToday() && !consentAskedInCurrentSession 
-				|| Config.support_GDPR_CCPA_Force && !consentAskedInCurrentSession)
-			{
-				AskConsent();
-			}
-			else
+			if (!consentAskedInCurrentSession) return;
+			if (IsAskedConsentToday() && !Config.support_GDPR_CCPA_Force)
 			{
 				if (Config.debug) Debug.Log($"Appodeal.RequestConsentIfNeeded already asked today. Will try tomorrow");
+				return;
 			}
+			if (consent.Value)
+            {
+				if (Config.debug) Debug.Log($"Consent already granted.");
+				return;
+			}
+			AskConsent();
 		}
 		public static void SetConsent(Consent newConsent)
 		{

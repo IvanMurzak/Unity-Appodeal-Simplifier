@@ -32,8 +32,6 @@ namespace AppodealSimplifier
 		}
 		private static bool IsDataCollectingAllowed(Consent consent)
 		{
-			if (Config.debug) Debug.Log($"Appodeal IsDataCollectingAllowed {consent}");
-
 			if (consent.getZone() == Consent.Zone.NONE) return true;
 			if (consent.getStatus() == Consent.Status.PERSONALIZED) return true;
 			if (consent.getAuthorizationStatus() == Consent.AuthorizationStatus.AUTHORIZED) return true;
