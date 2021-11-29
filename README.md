@@ -1,7 +1,10 @@
+# Unity Appodeal Simplifier
 ![License](https://img.shields.io/github/license/IvanMurzak/Unity-Appodeal-Simplifier)
 
-# Unity Appodeal Simplifier
 Codeless out of the box Appodeal integration into Unity project. Contains global config file which provide you ability to setup Appodeal without any line of code. 
+
+- :white_check_mark: iOS
+- :white_check_mark: Android
 
 **Supported Appodeal Unity plugin version: 2.14.5**
 
