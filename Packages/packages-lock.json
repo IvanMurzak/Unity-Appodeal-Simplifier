@@ -114,7 +114,7 @@
       }
     },
     "extensions.unity.base": {
-      "version": "1.9.1",
+      "version": "1.9.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
