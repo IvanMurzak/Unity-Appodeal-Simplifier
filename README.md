@@ -28,7 +28,7 @@ Any feature in the list is code free. It can be used without code. But if you ne
 ```json
 {
   "dependencies": {
-    "extensions.unity.base": "1.9.1",
+    "extensions.unity.base": "1.9.2",
   },
   "scopedRegistries": [
     {
