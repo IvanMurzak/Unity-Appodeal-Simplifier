@@ -46,6 +46,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.DS_Store
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -70,6 +71,7 @@ crashlytics-build.properties
 
 # ODIN Ignore the auto-generated AOT compatibility dll.
 /Assets/Plugins/Sirenix/Assemblies/AOT/*
+/Assets/Plugins/Sirenix/Assemblies/AOT**
 
 # ODIN Ignore all unpacked demos.
 /Assets/Plugins/Sirenix/Demos/*
@@ -80,3 +82,4 @@ crashlytics-build.properties
 
 # Appodeal
 /Assets/Appodeal/**
+/Assets/Appodeal.meta

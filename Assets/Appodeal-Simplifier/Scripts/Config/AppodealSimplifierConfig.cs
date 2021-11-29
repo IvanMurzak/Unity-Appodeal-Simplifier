@@ -76,6 +76,8 @@ namespace AppodealSimplifier
                                                                                                                 public  string			    AppodealAPIKey							=> appodealApiKeyAndroid;
 #elif UNITY_IOS
 		                                                                                                        public  string			    AppodealAPIKey							=> appodealApiKeyIOS;
+#else
+                                                                                                                public  string			    AppodealAPIKey							=> "not_supported_platform";
 #endif
     }
 #pragma warning restore CA2235 // Mark all non-serializable fields
