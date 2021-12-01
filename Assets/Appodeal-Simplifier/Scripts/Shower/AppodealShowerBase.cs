@@ -74,6 +74,13 @@ namespace AppodealSimplifier
 			AdsVisible.Value = false;
 		}
 
+		public void Cache() => TryCache();
+		public bool TryCache()
+        {
+			if (IsCached) return false;
+			AppodealCache();
+			return true;
+        }
 		public void Show() => TryShow();
 		public virtual bool TryShow()
 		{
