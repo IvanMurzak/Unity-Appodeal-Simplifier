@@ -14,20 +14,48 @@ namespace AppodealSimplifier
 		private static		bool						consentAskedInCurrentSession		= false;
 
 		public	static		bool						IsInitilized						{ get; private set; } = false;
-		public	static		bool						IsCached(int adType)				=> IsInitilized && Appodeal.isLoaded(adType);
-		public	static		AppodealSimplifierConfig	Config								=> AppodealSimplifierConfigInitializer.settings;
-
-		private	static async UniTask ForceInitialize()
+		public	static		bool						IsCached(int adType)
 		{
+			if (IsInitilized)
+			{
+				if (Config.debug) Debug.Log($"Appodeal.isLoaded({adType})");
+				return Appodeal.isLoaded(adType);
+			}
+			return false;
+		}
+		public	static		AppodealSimplifierConfig	Config								=> AppodealSimplifierConfigInitializer.Config;
+
+		private	static void ForceInitialize()
+		{
+			Debug.Log($"AppodealSimplifier ForceInitialize called raw");
+			if (Config.debug) Debug.Log($"AppodealSimplifier ForceInitialize called");
 			if (IsInitilized)
 			{
 				if (Config.debug) Debug.Log("Appodeal already initialized, ignoring second initialization");
 				return;
 			}
 
-			if (Config.debug) Debug.Log($"Appodeal initialization");
 			try
 			{
+				int adType = 0;
+					adType |= Config.EnableRewardedVideo		? Appodeal.REWARDED_VIDEO : 0;
+					adType |= Config.EnableNonSkippableVideo	? Appodeal.NON_SKIPPABLE_VIDEO : 0;
+					adType |= Config.EnableInterstitial			? Appodeal.INTERSTITIAL : 0;
+					adType |= Config.EnableMREC					? Appodeal.MREC : 0;
+					adType |= Config.EnableBanner				? Appodeal.BANNER : 0;
+
+				if (Config.debug)
+				{
+					Debug.Log($"Appodeal.initialize(APIKEY={Config.AppodealAPIKey}, adType={adType}, consent={consent.Value}");
+					Debug.Log($"Appodeal initialization Appodeal.REWARDED_VIDEO={Config.EnableRewardedVideo}");
+					Debug.Log($"Appodeal initialization Appodeal.NON_SKIPPABLE_VIDEO={Config.EnableNonSkippableVideo}");
+					Debug.Log($"Appodeal initialization Appodeal.INTERSTITIAL={Config.EnableInterstitial}");
+					Debug.Log($"Appodeal initialization Appodeal.MREC={Config.EnableMREC}");
+					Debug.Log($"Appodeal initialization Appodeal.BANNER={Config.EnableBanner}");
+				}
+
+				Appodeal.initialize(Config.AppodealAPIKey, adType, consent.Value);
+
 																	Appodeal.setLogLevel(Config.debug ? Config.appodealLogLevel : Appodeal.LogLevel.None);
 																	Appodeal.setTesting(Config.appodealTesting);
 				if (Config.setChildDirectedTreatment)				Appodeal.setChildDirectedTreatment(true);
@@ -67,15 +95,7 @@ namespace AppodealSimplifier
 				Appodeal.setAutoCache(Appodeal.NON_SKIPPABLE_VIDEO, Config.AutoCacheNonSkippableVideo);
 				Appodeal.setAutoCache(Appodeal.BANNER,				Config.AutoCacheBanner);
 				Appodeal.setAutoCache(Appodeal.MREC,				Config.AutoCacheMREC);
-
-				int adType = 0;
-					adType |= Config.EnableRewardedVideo		? Appodeal.REWARDED_VIDEO : 0;
-					adType |= Config.EnableNonSkippableVideo	? Appodeal.NON_SKIPPABLE_VIDEO : 0;
-					adType |= Config.EnableInterstitial			? Appodeal.INTERSTITIAL : 0;
-					adType |= Config.EnableMREC					? Appodeal.MREC : 0;
-					adType |= Config.EnableBanner				? Appodeal.BANNER : 0;
-
-				Appodeal.initialize(Config.AppodealAPIKey, adType, consent.Value);
+				
 				IsInitilized = true;
 				if (Config.debug) Debug.Log($"Appodeal Initialized");
 			}
@@ -89,15 +109,18 @@ namespace AppodealSimplifier
 				//	Analytics.LogError(e);
 				//}
 
-				await UniTask.DelayFrame(1);
-				await ForceInitialize();
+				UniTask.Post(async () =>
+				{
+					await UniTask.DelayFrame(1);
+					ForceInitialize();
+				});
 			}		
 		}
 		public	static void Initialize()
 		{
 			if (!IsInitilized)
 			{
-				ForceInitialize().Forget();
+				ForceInitialize();
 			}
 			if (Config.support_GDPR_CCPA && Config.support_GDPR_CCPA_OnInitialize)
 			{
@@ -108,7 +131,7 @@ namespace AppodealSimplifier
 		{
 			if (Config.debug) Debug.Log($"Appodeal.RequestConsentIfNeeded");
 
-			if (!consentAskedInCurrentSession) return;
+			if (consentAskedInCurrentSession) return;
 			if (IsAskedConsentToday() && !Config.support_GDPR_CCPA_Force)
 			{
 				if (Config.debug) Debug.Log($"Appodeal.RequestConsentIfNeeded already asked today. Will try tomorrow");

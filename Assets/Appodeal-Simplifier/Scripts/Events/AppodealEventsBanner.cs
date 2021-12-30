@@ -15,6 +15,7 @@ namespace AppodealSimplifier
 			{
 				if (_instance == null)
 				{
+					if (AppodealSimplifier.Config.debug) Debug.Log($"Appodeal.setBannerCallbacks()");
 					Appodeal.setBannerCallbacks(_instance = new AppodealEventsBanner());
 					if (AppodealSimplifier.Config.debug) Debug.Log("Banner Subscribed on Appodeal events");
 

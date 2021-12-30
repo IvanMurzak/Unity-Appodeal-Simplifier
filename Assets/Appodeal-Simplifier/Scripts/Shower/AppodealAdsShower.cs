@@ -8,13 +8,11 @@ using AppodealAds.Unity.Api;
 
 namespace AppodealSimplifier
 {
-	public abstract class AppodealShowerBase : SerializedMonoBehaviour
+	public abstract class AppodealAdsShower : SerializedMonoBehaviour
 	{
 		string[] Placements() => AppodealSimplifier.Config.placements ?? new string[] { "default" };
-#pragma warning disable CS0414 // Remove unused private members
 		[ValueDropdown("Placements", IsUniqueList = true)]
-        [SerializeField, Required]									string							placement				= "default";
-#pragma warning restore CS0414 // Remove unused private members
+		[SerializeField, Required]									string							placement				= "default";
 		[SerializeField]											bool							initializeOnAwake		= true;
 
 		[Button(ButtonSizes.Medium), HorizontalGroup("Buttons")]	void							SimulateShow()			=> TryShow();
@@ -59,13 +57,7 @@ namespace AppodealSimplifier
 			onClosedDisposable?.Dispose();
 			onClosedDisposable = OnClosedAds
 				.First		()
-				.Subscribe	(_ =>
-				{
-					onLoadedDisposable?.Dispose();
-					onLoadedDisposable = null;
-					AdsVisible.Value = false;
-					onClosed?.Invoke();
-				})
+				.Subscribe	(_ => onClosed?.Invoke())
 				.AddTo		(this);
 
 			if (AppodealSimplifier.Config.debug) Debug.Log($"Appodeal.show({AdType})");
@@ -90,44 +82,38 @@ namespace AppodealSimplifier
 			}
 		}
 
-		public void Cache()
+		public void Show()
 		{
 			AppodealSimplifier.Initialize();
-			TryCache();
+			TryShow();
 		}
-		public bool TryCache()
-        {
-			if (IsCached) return false;
-			AppodealCache();
-			return true;
-        }
-		public void Show() => TryShow();
 		public virtual bool TryShow()
 		{
 			AppodealSimplifier.Initialize();
 
 			if (AdsVisible.Value)
 			{
-				if (AppodealSimplifier.Config.debug) Debug.LogWarning($"Show ads already called for AdType={AdType}, it is still showing");
+				Debug.LogWarning($"Show ads already called for AdType={AdType}, it is still showing");
 				return true;
 			}
 			if (onLoadedDisposable != null)
 			{
-				if (AppodealSimplifier.Config.debug) Debug.LogWarning($"Ads AdType={AdType}, is still loading");
+				Debug.LogWarning($"Ads AdType={AdType}, is still loading");
 				return false;
 			}
 			onTryShow?.Invoke();
+			
 			if (IsCached)
-            {
+			{
 				UniTask.Post(async () =>
 				{
 					await UniTask.DelayFrame(1);
 					AppodealShow();
 				});
-            }
+			}
 			else
 			{
-				if (AppodealSimplifier.Config.debug) Debug.Log($"Ads is not yet cached with AdType={AdType}, calling 'cache' function");
+				Debug.Log($"Ads is not yet cached with AdType={AdType}, calling 'cache' function");
 				AppodealCache();
 				AdsVisible.Value = false;
 				onNoAds?.Invoke();
@@ -145,7 +131,6 @@ namespace AppodealSimplifier
 						{
 							onLoaded?.Invoke();
 							onLoadedDisposable?.Dispose();
-							onLoadedDisposable = null;
 							AppodealShow();
 						}).AddTo(this);
 				});

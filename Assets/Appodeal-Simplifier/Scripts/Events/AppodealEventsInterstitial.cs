@@ -15,6 +15,7 @@ namespace AppodealSimplifier
 			{
 				if (_instance == null)
 				{
+					if (AppodealSimplifier.Config.debug) Debug.Log($"Appodeal.setInterstitialCallbacks()");
 					Appodeal.setInterstitialCallbacks(_instance = new AppodealEventsInterstitial());
 					if (AppodealSimplifier.Config.debug) Debug.Log("Interstitial Subscribed on Appodeal events");
 

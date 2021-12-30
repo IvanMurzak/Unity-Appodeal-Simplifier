@@ -15,6 +15,7 @@ namespace AppodealSimplifier
 			{
 				if (_instance == null)
 				{
+					if (AppodealSimplifier.Config.debug) Debug.Log($"Appodeal.setMrecCallbacks()");
 					Appodeal.setMrecCallbacks(_instance = new AppodealEventsMREC());
 					if (AppodealSimplifier.Config.debug) Debug.Log("MREC Subscribed on Appodeal events");
 

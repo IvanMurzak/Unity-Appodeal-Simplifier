@@ -15,6 +15,7 @@ namespace AppodealSimplifier
 			{
 				if (_instance == null)
 				{
+					if (AppodealSimplifier.Config.debug) Debug.Log($"Appodeal.setRewardedVideoCallbacks()");
 					Appodeal.setRewardedVideoCallbacks(_instance = new AppodealEventsRewardedVideo());
 					if (AppodealSimplifier.Config.debug) Debug.Log("RewardedVideo Subscribed on Appodeal events");
 

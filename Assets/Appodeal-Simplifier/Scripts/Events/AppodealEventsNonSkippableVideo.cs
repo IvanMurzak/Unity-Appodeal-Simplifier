@@ -15,6 +15,7 @@ namespace AppodealSimplifier
 			{
 				if (_instance == null)
 				{
+					if (AppodealSimplifier.Config.debug) Debug.Log($"Appodeal.setNonSkippableVideoCallbacks()");
 					Appodeal.setNonSkippableVideoCallbacks(_instance = new AppodealEventsNonSkippableVideo());
 					if (AppodealSimplifier.Config.debug) Debug.Log("NonSkippableVideo Subscribed on Appodeal events");
 
