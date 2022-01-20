@@ -54,8 +54,6 @@ namespace AppodealSimplifier
 					Debug.Log($"Appodeal initialization Appodeal.BANNER={Config.EnableBanner}");
 				}
 
-				Appodeal.initialize(Config.AppodealAPIKey, adType, consent.Value);
-
 																	Appodeal.setLogLevel(Config.debug ? Config.appodealLogLevel : Appodeal.LogLevel.None);
 																	Appodeal.setTesting(Config.appodealTesting);
 				if (Config.setChildDirectedTreatment)				Appodeal.setChildDirectedTreatment(true);
@@ -90,12 +88,9 @@ namespace AppodealSimplifier
 				if (!Config.VUNGLE		)							Appodeal.disableNetwork(AppodealNetworks.VUNGLE		);
 				if (!Config.VAST		)							Appodeal.disableNetwork(AppodealNetworks.VAST		);
 
-				Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO,		Config.AutoCacheRewardedVideo);
-				Appodeal.setAutoCache(Appodeal.INTERSTITIAL,		Config.AutoCacheInterstitial);
-				Appodeal.setAutoCache(Appodeal.NON_SKIPPABLE_VIDEO, Config.AutoCacheNonSkippableVideo);
-				Appodeal.setAutoCache(Appodeal.BANNER,				Config.AutoCacheBanner);
-				Appodeal.setAutoCache(Appodeal.MREC,				Config.AutoCacheMREC);
-				
+				SetupAutoCache();
+
+				Appodeal.initialize(Config.AppodealAPIKey, adType, consent.Value);
 				IsInitilized = true;
 				if (Config.debug) Debug.Log($"Appodeal Initialized");
 			}
@@ -104,10 +99,6 @@ namespace AppodealSimplifier
 				Debug.LogError($"Appodeal is not initialized, exception triggered");
 				Debug.LogException(e);
 				initializationFailsCount++;
-				//if (initializationFailsCount == CountOfFailedInitializationUntilReport)
-				//{
-				//	Analytics.LogError(e);
-				//}
 
 				UniTask.Post(async () =>
 				{
@@ -116,6 +107,14 @@ namespace AppodealSimplifier
 				});
 			}		
 		}
+		private static void SetupAutoCache()
+        {
+			if (Config.EnableRewardedVideo)		Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO,		Config.AutoCacheRewardedVideo);
+			if (Config.EnableInterstitial)		Appodeal.setAutoCache(Appodeal.INTERSTITIAL,		Config.AutoCacheInterstitial);
+			if (Config.EnableNonSkippableVideo) Appodeal.setAutoCache(Appodeal.NON_SKIPPABLE_VIDEO, Config.AutoCacheNonSkippableVideo);
+			if (Config.EnableBanner)			Appodeal.setAutoCache(Appodeal.BANNER,				Config.AutoCacheBanner);
+			if (Config.EnableMREC)				Appodeal.setAutoCache(Appodeal.MREC,				Config.AutoCacheMREC);
+        }
 		public	static void Initialize()
 		{
 			if (!IsInitilized)
@@ -150,6 +149,7 @@ namespace AppodealSimplifier
 
 			consent.Value = IsDataCollectingAllowed(newConsent);
 			Appodeal.updateConsent(newConsent);
+			SetupAutoCache();
 		}
 		public static bool IsAskedConsentToday()
 		{
