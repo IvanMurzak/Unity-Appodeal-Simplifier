@@ -24,6 +24,14 @@ Any feature in the list is code free. It can be used without code. But if you ne
 - Install [Appodeal Unity plugin](https://wiki.appodeal.com/en/unity/get-started)
 - Install [ODIN Inspector](https://odininspector.com/)
 - Install [Unity Appodeal Simplifier](https://github.com/IvanMurzak/Unity-Appodeal-Simplifier/releases)
+- Follow [Option 1](https://github.com/IvanMurzak/Unity-Appodeal-Simplifier/edit/main/README.md#option-1-recommended) or [Option 2](https://github.com/IvanMurzak/Unity-Appodeal-Simplifier/edit/main/README.md#option-2)
+
+### Option 1 (RECOMMENDED)
+- [Install OpenUPM-CLI](https://github.com/openupm/openupm-cli#installation)
+- Open command line in Unity project folder
+- `openupm --registry https://registry.npmjs.org add extensions.unity.base`
+
+### Option 2
 - Add this code to <code>/Packages/manifest.json</code>
 ```json
 {
