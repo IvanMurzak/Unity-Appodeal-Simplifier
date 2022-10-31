@@ -1,5 +1,5 @@
 # Unity Appodeal Simplifier
-![License](https://img.shields.io/github/license/IvanMurzak/Unity-Appodeal-Simplifier)
+![License](https://img.shields.io/github/license/IvanMurzak/Unity-Appodeal-Simplifier) [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 Codeless out of the box Appodeal integration into Unity project. Contains global config file which provide you ability to setup Appodeal without any line of code. 
 
